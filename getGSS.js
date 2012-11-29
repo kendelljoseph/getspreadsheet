@@ -6,10 +6,6 @@
 *   and return an brand spankin' new object containing the data!
 */
 
-var GSS_KEY = "0AhepTSuBIkmLdFdrUDZnRDhnRmFtbTNCclhNcUVQRXc";   // Give me YOUR google spreadsheet KEY.
-var GSS_URL = "https://spreadsheets.google.com/feeds/list/"+    // Here is the YOUR spreadsheet URL WITH the KEY in it.
-            GSS_KEY + "/od6/public/values?alt=json";            
-
 function getGSS(GSS_URL, callback) {
     /*
     *   Accepts 2(1) arguments
@@ -55,7 +51,6 @@ function getGSS(GSS_URL, callback) {
             cleanTable.push(row); // Populates the clean array with an array for each row
         }
         
-
         function findRecords(obj) {
             var temporaryList = []; // Temporary array for storing each found name
             // Loops through the object 
@@ -69,11 +64,4 @@ function getGSS(GSS_URL, callback) {
         }
         return cleanTable;
     }
-    
 }
-
-getGSS(GSS_URL, function(data) {
-    var timestamp = data[0][0];
-    
-    console.log(data[0])
-});
