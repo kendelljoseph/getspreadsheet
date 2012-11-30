@@ -8,9 +8,37 @@
         <script src="javascript/example.js"></script>
     </head>
     <body>
-        <div id="uc">(PAGE IS STILL UNDER CONSTRUCTION) - Use "Show Recipe #" to change the recipe</div>
-        <article id="recipe"></article>
-        <div id="nextRecipeButton">Show Recipe #</div>
-        <input id="currentRecipe" type="text" value="9">
+        <div id="titleContainer">
+            <span id="recipeName"></span> - <span id="recipeType"></span><br/>
+            <span id="studentName"></span> - <span id="timestamp"></span><br />
+            <span id="studentEmail"></span>
+        </div>
+        
+        <div id="servingsContainer">
+            <div>Servings:</div><div id="servings"></div>    
+        </div>
+        
+        <img id="image" src="">
+        <div id="descriptionContainer">
+            <div class="label">Description:</div>
+            <div id="description"></div>
+        </div>
+        
+        <div id="infoContainer">
+            <div class="label">Ingredients:</div>
+            <div id="ingredients"></div>
+            <div class="label">Directions:</div>
+            <div id="directions"></div>
+            <div class="label">Story:</div>
+            <div id="story"></div>
+            <div class="label">History:</div>
+            <div id="history"></div>
+        </div>
+        
+        <div id="recipeScroller">
+            <div class="clickable" id="nextRecipe"> Next </div><div class="clickable" id="prevRecipe"> Previous</div>
+        </div>
+        <div id="jumpToButton">Jump to Recipe #</div>
+        <input id="currentRecipe" type="text" value="10">
     </body>
 </html>
