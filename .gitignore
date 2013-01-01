@@ -1,5 +1,6 @@
 # Cloud 9 files
-c9revisions
+.c9revisions/
+.c9revisions/*.*
 
 # Ignore configuration files that may contain sensitive information.
 sites/*/*settings*.php

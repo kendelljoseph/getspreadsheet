@@ -1,9 +1,8 @@
 $(function(){
     var studentRecipes = getGSS;                                    // Rename getGSS (this is mainly for use in cloud 9)
     var GSS_KEY = "0AhepTSuBIkmLdFdrUDZnRDhnRmFtbTNCclhNcUVQRXc";   // Student Recipes GSS key
-    var GSS_URL = "https://spreadsheets.google.com/feeds/list/"+    // Student Recipes GSS URL
-                GSS_KEY + "/od6/public/values?alt=json";            
-    
+    var GSS_URL = "https://spreadsheets.google.com?key="+ GSS_KEY;
+
     studentRecipes(GSS_URL, function(rows) {    // Pass the GSS URL
         var nextButton = $('#nextRecipe');
         var prevButton = $('#prevRecipe');
