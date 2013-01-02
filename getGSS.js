@@ -84,7 +84,12 @@ function getGSS(GSS_URL, callback) {
     }
     
     var spreadsheetKEY = urlArgs(GSS_URL).key;          // I get the spreadsheet key from the input GSS URL
+    if(spreadsheetKEY.indexOf('#') !== -1) { spreadsheetKEY = spreadsheetKEY.split('#')[0];} // If the direct URL is used, i remove the extra parts at the end
     var spreadshetURL = "https://spreadsheets.google.com/feeds/list/" + spreadsheetKEY + "/od6/public/values?alt=json";  // I insert the key into the JSON URL          
+    
+    
+    
+    
     
     var ajaxOptions = {         // These are my jQuery Ajax Options.
         url: spreadshetURL,     // I pass the spreadshet URL as to the Ajax request
