@@ -17,19 +17,18 @@ function getGSS(GSS_URL, callback) {
         var table;
         
         if (res === "success") {                    // If I recieve a successful response, I RUN success.
-            table= formatGSS($.parseJSON(data.responseText));    // I clean up the table formatting first
+            table = formatGSS($.parseJSON(data.responseText));    // I clean up the table formatting first
             success();
         }
         
         if (res != "success") { table=[]; fail(); } // If I recieve an unsuccessful response, I RUN fail.
         
         function success(){ // Things I will do if the response is successful.
-            console.log('Successfully retrieved a table with ' + table.length + ' rows.' );
-            console.log('Each row has ' + table[0].length + ' columns.' );
+            console.log('Successfully retrieved a table');
         }
         function fail(){    // Things I will do if the response is NOT successful.
             console.log('Failed to retrieve table using the URL ' + GSS_URL);
-            console.log('The key in the url ' + urlArgs(GSS_URL).key + ' may be invalid OR')
+            console.log('The key in the url ' + urlArgs(GSS_URL).key + ' may be invalid OR');
             console.log('The table may not yet be published to the web for public viewing.');
         }
         
@@ -40,28 +39,29 @@ function getGSS(GSS_URL, callback) {
     
     // Cleans the table returned from the AJAX request
     function formatGSS(table) {
-        var cleanTable = [];                    // I make a new array to store the new table.
         var tableObjects = table.feed.entry;    // I get the original table(its an array) that was returned from the Ajax request
+        var tabeObject = {};
+        
+        for (var name0 in tableObjects[0]) {
+            if (name0.indexOf("gsx$") === 0) {
+                var columnName = name0.split("gsx$")[1];
+                tabeObject[columnName] = [];
+            }
+        }
         
         if (!tableObjects) {    
-            return cleanTable;  // If I can't find the table in the GSS I RETURN an empty table.
+            return false;  // If I can't find the table in the GSS I RETURN false
         }
         
         for(var i=0; i < tableObjects.length; i++){ // I LOOP through the objects in the table
-            var row = findValidRecords(tableObjects[i]); // I find only valid table records in the array
-            cleanTable.push(row); // Then i push the valid records up to the clean table
-        }
-        
-        function findValidRecords(obj) {
-            var validRecords = []; // I make an array for storing each valid object's contents
-            for (var name in obj) {                     // I LOOP through the names of each object
-                if (name.indexOf("gsx$") === 0) {       // IF an objects name starts with "gsx$" it is valid
-                    validRecords.push(obj[name].$t);    // Then I push the valid objects contents to the temporary list
+            for (var name1 in tableObjects[i]) {                     // I LOOP through the names of each object
+                if (name1.indexOf("gsx$") === 0) {       // IF an objects name starts with "gsx$" it is valid
+                    var column = name1.split("gsx$")[1];
+                    tabeObject[column].push(tableObjects[i][name1].$t);
                 }
             }
-            return validRecords; // After the object is fully interrigated, i return the array
         }
-        return cleanTable;
+        return tabeObject;
     }
     
     // This parses the URL arguments as an object, this is a modifed version of a general use method by David Flannigan
