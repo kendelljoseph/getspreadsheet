@@ -4,6 +4,6 @@ $(function(){
     var spreadsheetURL = "https://docs.google.com/spreadsheet/ccc?key=0AkOIIIT7wBStdHZMNFRqbVBoM253c21BWHJRSnN5WlE#gid=0"; // spreadsheet URL
     
     getUnrulyBeers(spreadsheetURL, function(rows) {    // Pass the GSS URL
-        console.log(rows);
+        //console.log(rows);
     });
 });

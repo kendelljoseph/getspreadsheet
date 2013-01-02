@@ -24,8 +24,13 @@ function getGSS(GSS_URL, callback) {
         if (res != "success") { table=[]; fail(); } // If I recieve an unsuccessful response, I RUN fail.
         
         function success(){ // Things I will do if the response is successful.
+            console.log('Successfully retrieved a table with ' + table.length + ' rows.' );
+            console.log('Each row has ' + table[0].length + ' columns.' );
         }
         function fail(){    // Things I will do if the response is NOT successful.
+            console.log('Failed to retrieve table using the URL ' + GSS_URL);
+            console.log('The key in the url ' + urlArgs(GSS_URL).key + ' may be invalid OR')
+            console.log('The table may not yet be published to the web for public viewing.');
         }
         
         if (callback instanceof Function) {     // If the callback is a function, I will proceed.
