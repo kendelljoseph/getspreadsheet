@@ -49,9 +49,7 @@ function getGSS(GSS_URL, callback) {
         
         function findValidRecords(obj) {
             var validRecords = []; // I make an array for storing each valid object's contents
-            
             for (var name in obj) {                     // I LOOP through the names of each object
-                
                 if (name.indexOf("gsx$") === 0) {       // IF an objects name starts with "gsx$" it is valid
                     validRecords.push(obj[name].$t);    // Then I push the valid objects contents to the temporary list
                 }
@@ -61,7 +59,7 @@ function getGSS(GSS_URL, callback) {
         return cleanTable;
     }
     
-    // This parses the URL arguments as an object, (thanks David!)
+    // This parses the URL arguments as an object, this is a modifed version of a general use method by David Flannigan
     function urlArgs(url) {
         var args = {};
         var query;
@@ -83,14 +81,9 @@ function getGSS(GSS_URL, callback) {
         return args;
     }
     
-    var spreadsheetKEY = urlArgs(GSS_URL).key;          // I get the spreadsheet key from the input GSS URL
+    var spreadsheetKEY = urlArgs(GSS_URL).key;  // I get the spreadsheet key from the input GSS URL
     if(spreadsheetKEY.indexOf('#') !== -1) { spreadsheetKEY = spreadsheetKEY.split('#')[0];} // If the direct URL is used, i remove the extra parts at the end
     var spreadshetURL = "https://spreadsheets.google.com/feeds/list/" + spreadsheetKEY + "/od6/public/values?alt=json";  // I insert the key into the JSON URL          
-    
-    
-    
-    
-    
     var ajaxOptions = {         // These are my jQuery Ajax Options.
         url: spreadshetURL,     // I pass the spreadshet URL as to the Ajax request
         complete:doWhenComplete // I RUN only when the Ajax request is complete.
