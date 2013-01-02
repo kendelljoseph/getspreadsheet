@@ -3,67 +3,60 @@ $(function(){
     var GSS_KEY = "0AhepTSuBIkmLdFdrUDZnRDhnRmFtbTNCclhNcUVQRXc";   // Student Recipes GSS key
     var GSS_URL = "https://spreadsheets.google.com?key="+ GSS_KEY;
 
-    studentRecipes(GSS_URL, function(rows) {    // Pass the GSS URL
+    studentRecipes(GSS_URL, function(recipes) {    // Pass the GSS URL
         var nextButton = $('#nextRecipe');
         var prevButton = $('#prevRecipe');
         var jumpToButton = $('#jumpToButton');
         var currentRecipe = $('#currentRecipe');
         
-        function showRecipe(recipeNum){
-            var columns;
-            if (recipeNum != undefined) {
-                columns = rows[recipeNum];
-                console.log(recipeNum)
-            } else {
-                columns = rows[currentRecipe.val()];
-                console.log(recipeNum)
-            }
+        function showRecipe(n){
+            
             var studentName = $('#studentName')
-                    .html(columns[1] + " " + columns[2]);
+                    .html(recipes.firstname[n] + " " + recipes.lastname[n]);
             var studentEmail = $('#studentEmail')
-                    .html(columns[4]);
+                    .html(recipes.email[n]);
             var recipeType = $('#recipeType')
-                    .html(columns[8]);
-            var timestamp = $('#timestamp')   // The Recipe Timestamp
-                    .html(columns[0]);
-            var ingredients = $('#ingredients') // The Ingredients
-                    .html(columns[13]);     // GSS column n
-            var name = $('#recipeName')      // The Recipe Name
-                    .html(columns[6]);      // GSS Column F
-            var description = $('#description')    // The Recipe Description
-                    .html(columns[7]);      // GSS Column G
-            var directions = $('#directions')    // The Recipe Description
-                    .html(columns[14]);      // GSS Column G
-            var story = $('#story')    // The Recipe Description
-                    .html(columns[15]);      // GSS Column G
-            var history = $('#history')    // The Recipe Description
-                    .html(columns[16]);      // GSS Column G      
-            var image = $('#image')            // The Recipe Image
-                .attr("src", columns[3]);   // GSS Column D
-            var servings = $('#servings')    // The Recipe Description
-                    .html(columns[10]);      // GSS Column G       
+                    .html(recipes.typeofdish[n]);
+            var timestamp = $('#timestamp')
+                    .html(recipes.timestamp[n]);
+            var ingredients = $('#ingredients')
+                    .html(recipes.listalltheingredients[n]);    
+            var name = $('#recipeName')
+                    .html(recipes.recipename[n]);
+            var description = $('#description')
+                    .html(recipes.description[n]);
+            var directions = $('#directions')
+                    .html(recipes.directions[n]);
+            var story = $('#story')
+                    .html(recipes.significanceofthisfoodinyourculturefamily[n]);
+            var history = $('#history')
+                    .html(recipes.history[n]);
+            var image = $('#image')
+                .attr("src", recipes.picurl[n]);
+            var servings = $('#servings')
+                    .html(recipes.numberofservings[n]);
         }
         
         nextButton.mousedown(function(){
             var recipeNumber = currentRecipe.val(parseInt(currentRecipe.val(),10) + 1);
-            showRecipe();
-        });
-        prevButton.mousedown(function(){
-            if (currentRecipe.val() === 0) {
-                showRecipe();
-                return;
-            }
-            var recipeNumber = currentRecipe.val(parseInt(currentRecipe.val(),10) - 1);
-            showRecipe();
-        });
-        jumpToButton.mousedown(showRecipe);
-        currentRecipe.keypress(function(){
-            if ( event.which == 13 ) {
-                event.preventDefault();
-                showRecipe();
-           }
+            showRecipe(recipeNumber.val());
         });
         
-        showRecipe();
+        prevButton.mousedown(function(){
+            var recipeNumber = currentRecipe.val(parseInt(currentRecipe.val(),10) - 1);
+            if (recipeNumber.val() < 0) {
+                showRecipe(0);
+                recipeNumber.val(0);
+                return;
+            }
+            showRecipe(recipeNumber.val());
+        });
+        
+        jumpToButton.mousedown(function(){
+            showRecipe(currentRecipe.val());
+        });
+        
+        
+        showRecipe(0);
     });
 });
